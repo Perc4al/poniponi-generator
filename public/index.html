@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>poniponi Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0; /* Slightly darker gray background */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Ensures equal column widths */
+            background-color: white; /* White table background */
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+            width: 25%; /* Ensures each column takes up 25% of the table width */
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            margin-right: 5px;
+            display: inline-block;
+            width: auto;
+        }
+        .slider-group {
+            display: flex;
+            align-items: center;
+        }
+        .slider-group input {
+            margin-left: 10px;
+            width: 80%;
+        }
+        button {
+            width: 100%;
+            margin-top: 10px;
+            background-color: #90ee90; /* Light green background */
+            border: none;
+            padding: 10px;
+            color: black; /* Keep the text black */
+            cursor: pointer;
+        }
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .compact-label {
+            width: auto;
+            white-space: nowrap; /* Prevent labels from taking up too much space */
+        }
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .button-row button {
+            flex: 1;
+            margin-right: 5px;
+        }
+        .button-row button:last-child {
+            margin-right: 0;
+        }
+        .spacer {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>poniponi Generator</h1>
+<p>Prompt generator for ideas on designing a mare.</p>
+
+<div class="form-group">
+    <table>
+        <tr>
+            <td><label class="compact-label">Number of Personality:</label></td>
+            <td>
+                <div class="slider-group">
+                    <input type="range" id="numPersonality" name="numPersonality" min="1" max="10" value="3" oninput="document.getElementById('numPersonalityValue').innerText = this.value">
+                    <span id="numPersonalityValue">3</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label class="compact-label">Number of Clothing:</label></td>
+            <td>
+                <div class="slider-group">
+                    <input type="range" id="numClothing" name="numClothing" min="1" max="10" value="3" oninput="document.getElementById('numClothingValue').innerText = this.value">
+                    <span id="numClothingValue">3</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<button id="randomizeAll" style="width: 100%;">Randomize All Attributes</button>
+
+<div class="button-row">
+    <button id="randomizeRace">Randomize Race</button>
+    <button id="randomizeTheme">Randomize Theme</button>
+    <button id="randomizePersonality">Randomize Personality Traits</button>
+    <button id="randomizeClothing">Randomize Clothing Items</button>
+</div>
+
+<div class="spacer"></div>
+
+<table id="characterTable">
+    <thead>
+        <tr>
+            <th>Race</th>
+            <th>Theme</th>
+            <th>Personality Traits</th>
+            <th>Clothing Items</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="race">---</td>
+            <td id="theme">---</td>
+            <td id="personality"><ul></ul></td>
+            <td id="clothing"><ul></ul></td>
+        </tr>
+    </tbody>
+</table>
+
+<script src="script.js"></script>
+</body>
+</html>
