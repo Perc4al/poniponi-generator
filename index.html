@@ -131,7 +131,7 @@
     <div class="form-group">
         <table>
             <tr>
-                <td><label class="compact-label">Number of Personality:</label></td>
+                <td><label class="compact-label" for="numPersonality">Number of Personality:</label></td>
                 <td>
                     <div class="slider-group">
                         <input type="range" id="numPersonality" name="numPersonality" min="1" max="10" value="3" oninput="document.getElementById('numPersonalityValue').innerText = this.value">
@@ -140,7 +140,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label class="compact-label">Number of Clothing:</label></td>
+                <td><label class="compact-label" for="numClothing">Number of Clothing:</label></td>
                 <td>
                     <div class="slider-group">
                         <input type="range" id="numClothing" name="numClothing" min="1" max="10" value="3" oninput="document.getElementById('numClothingValue').innerText = this.value">
@@ -151,7 +151,7 @@
         </table>
     </div>
 
-    <button id="randomizeAll" style="width: 100%;">Randomize All Attributes</button>
+    <button id="randomizeAll" class="data-submit">Randomize All Attributes</button>
 
     <div class="button-row">
         <button id="randomizeRace">Randomize Race</button>
@@ -193,17 +193,32 @@
     </div>
 
     <div class="form-group">
-        <label for="randomShift"><input type="radio" id="randomShift" name="shiftType" value="random" checked> Random Value</label>
-        <label for="fixedShift"><input type="radio" id="fixedShift" name="shiftType" value="fixed"> Fixed Value</label>
+        <div>
+            <input type="radio" id="randomShift" name="shiftType" value="random" checked>
+            <label for="randomShift">Random Value</label>
+        </div>
+        <div>
+            <input type="radio" id="fixedShift" name="shiftType" value="fixed">
+            <label for="fixedShift">Fixed Value</label>
+        </div>
     </div>
 
     <div class="form-group">
-        <label for="triadic"><input type="radio" id="triadic" name="colorScheme" value="triadic" checked> Triadic</label>
-        <label for="complementary"><input type="radio" id="complementary" name="colorScheme" value="complementary"> Complementary</label>
-        <label for="analogous"><input type="radio" id="analogous" name="colorScheme" value="analogous"> Analogous</label>
+        <div>
+            <input type="radio" id="triadic" name="colorScheme" value="triadic" checked>
+            <label for="triadic">Triadic</label>
+        </div>
+        <div>
+            <input type="radio" id="complementary" name="colorScheme" value="complementary">
+            <label for="complementary">Complementary</label>
+        </div>
+        <div>
+            <input type="radio" id="analogous" name="colorScheme" value="analogous">
+            <label for="analogous">Analogous</label>
+        </div>
     </div>
 
-    <button id="generateColors" class="data-submit" style="width: 100%;">Generate Colors</button>
+    <button id="generateColors" class="data-submit">Generate Colors</button>
 
     <div class="spacer"></div>
 
