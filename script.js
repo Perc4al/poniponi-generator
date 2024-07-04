@@ -1,3 +1,14 @@
+// Fetch CSV Data function
+function fetchCSVData(url) {
+    return fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            const rows = data.split('\n');
+            const result = rows.slice(1).map(row => row.split(','));
+            return result;
+        });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Existing code for Pony Generator
     fetchCSVData('data.csv').then(data => {
