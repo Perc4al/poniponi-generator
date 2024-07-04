@@ -8,20 +8,19 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f0f0f0; /* Slightly darker gray background */
+            background-color: #f0f0f0;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: fixed; /* Ensures equal column widths */
-            background-color: white; /* White table background */
+            table-layout: fixed;
+            background-color: white;
         }
         th, td {
             border: 1px solid black;
             padding: 10px;
             text-align: left;
             vertical-align: top;
-            width: 25%; /* Ensures each column takes up 25% of the table width */
         }
         .form-group {
             margin-bottom: 15px;
@@ -42,10 +41,10 @@
         button {
             width: 100%;
             margin-top: 10px;
-            background-color: #90ee90; /* Light green background */
+            background-color: #90ee90;
             border: none;
             padding: 10px;
-            color: black; /* Keep the text black */
+            color: black;
             cursor: pointer;
         }
         ul {
@@ -54,7 +53,7 @@
         }
         .compact-label {
             width: auto;
-            white-space: nowrap; /* Prevent labels from taking up too much space */
+            white-space: nowrap;
         }
         .button-row {
             display: flex;
@@ -71,65 +70,174 @@
         .spacer {
             margin-top: 20px;
         }
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            background-color: #333; /* Dark background for the tabs */
+        }
+        .tabs button {
+            flex: 1;
+            background-color: #333; /* Dark background for the tab buttons */
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            color: white; /* White text for the tab buttons */
+            transition: 0.3s;
+        }
+        .tabs button:hover {
+            background-color: #575757;
+        }
+        .tabs button.active {
+            background-color: #4CAF50;
+        }
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border-top: none;
+            background-color: white; /* Ensure tab content remains white */
+            color: black; /* Ensure tab content text remains black */
+        }
+        .title-description {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 10px; /* Adjust margin to reduce space */
+        }
+        .title-description h1 {
+            font-weight: bold;
+            margin: 0;
+            margin-right: 10px;
+        }
+        .title-description p {
+            color: darkgray;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
 
-<h1>poniponi Generator</h1>
-<p>Prompt generator for ideas on designing a mare.</p>
+<div class="title-description">
+    <h1>poniponi Generator</h1>
+    <p>Prompt generator for ideas on designing a mare.</p>
+</div>
 
-<div class="form-group">
-    <table>
-        <tr>
-            <td><label class="compact-label">Number of Personality:</label></td>
-            <td>
-                <div class="slider-group">
-                    <input type="range" id="numPersonality" name="numPersonality" min="1" max="10" value="3" oninput="document.getElementById('numPersonalityValue').innerText = this.value">
-                    <span id="numPersonalityValue">3</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><label class="compact-label">Number of Clothing:</label></td>
-            <td>
-                <div class="slider-group">
-                    <input type="range" id="numClothing" name="numClothing" min="1" max="10" value="3" oninput="document.getElementById('numClothingValue').innerText = this.value">
-                    <span id="numClothingValue">3</span>
-                </div>
-            </td>
-        </tr>
+<div class="tabs">
+    <button class="tablinks" onclick="openTab(event, 'PonyGenerator')">Pony Generator</button>
+    <button class="tablinks" onclick="openTab(event, 'ColorGenerator')">Color Generator</button>
+</div>
+
+<div id="PonyGenerator" class="tabcontent">
+    <!-- Content for Pony Generator -->
+    <div class="form-group">
+        <table>
+            <tr>
+                <td><label class="compact-label">Number of Personality:</label></td>
+                <td>
+                    <div class="slider-group">
+                        <input type="range" id="numPersonality" name="numPersonality" min="1" max="10" value="3" oninput="document.getElementById('numPersonalityValue').innerText = this.value">
+                        <span id="numPersonalityValue">3</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label class="compact-label">Number of Clothing:</label></td>
+                <td>
+                    <div class="slider-group">
+                        <input type="range" id="numClothing" name="numClothing" min="1" max="10" value="3" oninput="document.getElementById('numClothingValue').innerText = this.value">
+                        <span id="numClothingValue">3</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <button id="randomizeAll" style="width: 100%;">Randomize All Attributes</button>
+
+    <div class="button-row">
+        <button id="randomizeRace">Randomize Race</button>
+        <button id="randomizeTheme">Randomize Theme</button>
+        <button id="randomizePersonality">Randomize Personality Traits</button>
+        <button id="randomizeClothing">Randomize Clothing Items</button>
+    </div>
+
+    <div class="spacer"></div>
+
+    <table id="characterTable">
+        <thead>
+            <tr>
+                <th>Race</th>
+                <th>Theme</th>
+                <th>Personality Traits</th>
+                <th>Clothing Items</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="race">---</td>
+                <td id="theme">---</td>
+                <td id="personality"><ul></ul></td>
+                <td id="clothing"><ul></ul></td>
+            </tr>
+        </tbody>
     </table>
 </div>
 
-<button id="randomizeAll" style="width: 100%;">Randomize All Attributes</button>
+<div id="ColorGenerator" class="tabcontent">
+    <!-- Content for Color Generator -->
+    <div class="form-group">
+        <label for="numColors" class="compact-label">Number of Colors:</label>
+        <div class="slider-group">
+            <input type="range" id="numColors" name="numColors" min="3" max="10" value="3" oninput="document.getElementById('numColorsValue').innerText = this value">
+            <span id="numColorsValue">3</span>
+        </div>
+    </div>
 
-<div class="button-row">
-    <button id="randomizeRace">Randomize Race</button>
-    <button id="randomizeTheme">Randomize Theme</button>
-    <button id="randomizePersonality">Randomize Personality Traits</button>
-    <button id="randomizeClothing">Randomize Clothing Items</button>
+    <div class="form-group">
+        <label for="randomShift"><input type="radio" id="randomShift" name="shiftType" value="random" checked> Random Value</label>
+        <label for="fixedShift"><input type="radio" id="fixedShift" name="shiftType" value="fixed"> Fixed Value</label>
+    </div>
+
+    <div class="form-group">
+        <label for="triadic"><input type="radio" id="triadic" name="colorScheme" value="triadic" checked> Triadic</label>
+        <label for="complementary"><input type="radio" id="complementary" name="colorScheme" value="complementary"> Complementary</label>
+        <label for="analogous"><input type="radio" id="analogous" name="colorScheme" value="analogous"> Analogous</label>
+    </div>
+
+    <button id="generateColors" class="data-submit" style="width: 100%;">Generate Colors</button>
+
+    <div class="spacer"></div>
+
+    <table id="colorTable">
+        <thead>
+            <tr>
+                <th>Color</th>
+                <th>Hex Code</th>
+            </tr>
+        </thead>
+        <tbody id="colorTableBody">
+            <!-- Generated colors will appear here -->
+        </tbody>
+    </table>
 </div>
 
-<div class="spacer"></div>
+<script>
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
 
-<table id="characterTable">
-    <thead>
-        <tr>
-            <th>Race</th>
-            <th>Theme</th>
-            <th>Personality Traits</th>
-            <th>Clothing Items</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td id="race">---</td>
-            <td id="theme">---</td>
-            <td id="personality"><ul></ul></td>
-            <td id="clothing"><ul></ul></td>
-        </tr>
-    </tbody>
-</table>
+// Display the default tab
+document.getElementsByClassName("tablinks")[0].click();
+</script>
 
 <script src="script.js"></script>
 </body>
